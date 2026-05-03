@@ -1,0 +1,29 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-center mb-8">サボタージュボタン</h1>
+
+  <!-- タスク登録フォーム -->
+  <div class="max-w-md mx-auto mb-8">
+    <%= form_with model: @task, url: tasks_path, local: true, class: "flex gap-2" do |f| %>
+      <%= f.text_field :name, placeholder: "タスク名を入力", class: "flex-1 px-4 py-2 border rounded" %>
+      <%= f.submit "登録", class: "px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>
+    <% end %>
+  </div>
+
+  <!-- タスク一覧 -->
+  <div class="max-w-2xl mx-auto space-y-4">
+    <% @tasks.each do |task| %>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold"><%= task.name %></h3>
+            <p class="text-sm text-gray-600">完了回数: <%= task.completion_count %>回</p>
+          </div>
+          <div class="flex gap-2">
+            <%= link_to "サボりたい", timer_task_path(task), class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" %>
+            <%= button_to "削除", task_path(task), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
