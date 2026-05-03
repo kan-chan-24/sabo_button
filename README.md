@@ -1,24 +1,28 @@
-# README
+# サボっちゃボタン.
+## 概要
+「勉強しなくちゃいけないけど、スマホ触りたい」
+「筋トレしたいけど、テレビみたい」
+そんなサボりたくなっちゃうの誘惑を乗り越えるための3分の我慢を手助けするミニアプリです。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## ターゲット
+ついついサボっちゃいたくなることは日常にたくさん潜んでいます。
+勉強や筋トレ、郵便物、溜まった返信、お風呂、歯磨き...
+日頃頑張りたいことがたくさんあるあなたへ
 
-Things you may want to cover:
+## 公開URL
 
-* Ruby version
 
-* System dependencies
+## 機能
+サボっちゃいたくなること（タスク）の登録
+3分タイマー機能
+完了記録
+シェア機能
 
-* Configuration
+## 使用技術
+HTML
+CSS(Tailwind CSS)
+JavaScript
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 開発環境
+エディタ: VS Code
+バージョン管理: Git/GitHub
