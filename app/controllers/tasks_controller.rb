@@ -20,6 +20,20 @@ class TasksController < ApplicationController
     redirect_to tasks_path, notice: "タスクを削除しました"
   end
 
+  def timer # タイマー起動
+    @task = Task.find(params[:id])
+  end
+
+  def complete # タイマー完了
+    @task = Task.find(params[:id])
+    @task.increment!(:completion_count)
+    redirect_to history_task_path(@task)
+  end
+
+  def history # 完了履歴
+    @task = Task.find(params[:id])
+  end
+
   private
 
   def task_params
