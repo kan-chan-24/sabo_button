@@ -3,4 +3,5 @@ class Task < ApplicationRecord
             presence: true,
             length: { maximum: 30 },
             uniqueness: true
+  validates :user_identifier, presence: true
 end
