@@ -14,7 +14,7 @@
 
   <!-- タスク登録フォーム -->
   <div class="max-w-md mx-auto mb-6 md:mb-8">
-    <%= form_with model: @task, url: tasks_path, local: true, class: "flex flex-col sm:flex-row gap-2" do |f| %>
+    <%= form_with model: @task, url: tasks_path, data: { turbo: false }, class: "flex flex-col sm:flex-row gap-2" do |f| %>
       <%= f.text_field :name, 
           placeholder: "サボりたくなっちゃうものを入力してね", 
           class: "w-full sm:flex-1 px-4 py-2 border rounded text-sm md:text-base" %>
