@@ -47,6 +47,29 @@
       <% end %>
     </div>
 
+    <!-- Xシェアボタン -->
+    <div class="mb-6 md:mb-8">
+      <% 
+        # ポスト内容を作成
+        post_text = "「#{@task.name}」をサボタージュの誘惑から#{@task.completion_count}回乗り越えました!🎉"
+        # 現在のページのURLを取得
+        share_url = request.original_url
+        # XのシェアURL
+        x_url = "https://x.com/intent/post?text=#{ERB::Util.url_encode(post_text)}&url=#{ERB::Util.url_encode(share_url)}"
+      %>
+      
+      <%= link_to x_url, 
+          target: "_blank", 
+          rel: "noopener noreferrer",
+          class: "flex items-center justify-center gap-2 w-full px-6 py-3 md:py-4 bg-black text-white text-center text-base md:text-lg font-bold rounded-lg hover:bg-gray-800 transition shadow-md" do %>
+        <!-- Xアイコン(SVG) -->
+        <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        <span>達成をシェアする</span>
+      <% end %>
+    </div>
+
     <!-- ボタン:スマホでもタップしやすく -->
     <div class="space-y-3 md:space-y-4">
       <%= link_to "もう一度やる", 
