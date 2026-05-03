@@ -1,29 +1,93 @@
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold text-center mb-8">サボタージュボタン</h1>
+<div class="container mx-auto px-4 py-4 md:py-8">
+  <!-- タイトル -->
+  <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 md:mb-8">
+    サボタージュボタン
+  </h1>
+  
+  <!-- サブタイトル -->
+  <h3 class="text-sm md:text-base lg:text-lg font-bold text-center mb-2">
+    サボりたい...の誘惑にほんの3分のお手伝い
+  </h3>
+  <h3 class="text-sm md:text-base lg:text-lg font-bold text-center mb-6 md:mb-8">
+    ついついサボりたくなっちゃうものを登録してね
+  </h3>
 
   <!-- タスク登録フォーム -->
-  <div class="max-w-md mx-auto mb-8">
-    <%= form_with model: @task, url: tasks_path, local: true, class: "flex gap-2" do |f| %>
-      <%= f.text_field :name, placeholder: "タスク名を入力", class: "flex-1 px-4 py-2 border rounded" %>
-      <%= f.submit "登録", class: "px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>
+  <div class="max-w-md mx-auto mb-6 md:mb-8">
+    <%= form_with model: @task, url: tasks_path, local: true, class: "flex flex-col sm:flex-row gap-2" do |f| %>
+      <%= f.text_field :name, 
+          placeholder: "サボりたくなっちゃうものを入力してね", 
+          class: "w-full sm:flex-1 px-4 py-2 border rounded text-sm md:text-base" %>
+      <%= f.submit "登録", 
+          class: "w-full sm:w-auto px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition text-sm md:text-base" %>
     <% end %>
   </div>
 
-  <!-- タスク一覧 -->
-  <div class="max-w-2xl mx-auto space-y-4">
+<!-- タスク一覧 -->
+<% if @tasks.present? %>
+  <h3 class="text-sm md:text-base lg:text-lg font-bold text-center mb-6 md:mb-8">
+    サボりたくなったら丸いボタンを押してね
+  </h3>
+  
+  <div class="max-w-2xl mx-auto space-y-3 md:space-y-4">
     <% @tasks.each do |task| %>
-      <div class="bg-white p-4 rounded-lg shadow">
-        <div class="flex items-center justify-between">
-          <div class="flex-1">
-            <h3 class="text-lg font-semibold"><%= task.name %></h3>
-            <p class="text-sm text-gray-600">完了回数: <%= task.completion_count %>回</p>
-          </div>
-          <div class="flex gap-2">
-            <%= link_to "サボりたい", timer_task_path(task), class: "px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600" %>
-            <%= button_to "削除", task_path(task), method: :delete, data: { confirm: "本当に削除しますか？" }, class: "px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600" %>
-          </div>
+        <div class="bg-white rounded-lg shadow-md p-4 md:p-6">
+            <!-- タスク情報と丸いボタンを横並びに(ボタンを右側に) -->
+            <div class="flex items-center gap-4">
+            <!-- 左側:タスク情報 -->
+            <div class="flex-1 min-w-0">
+                <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-1 truncate">
+                <%= task.name %>
+                </h2>
+                <p class="text-sm md:text-base text-gray-600 mb-3">
+                完了回数: <span class="font-bold text-blue-600"><%= task.completion_count.to_i %></span> 回
+                </p>
+                
+                <!-- その他のボタン:スマホでは縦並び、タブレット以上で横並び -->
+                <div class="flex flex-col sm:flex-row gap-2">
+                <%= link_to "記録を見る", 
+                    history_task_path(task), 
+                    class: "w-full sm:w-auto text-center px-3 md:px-4 py-2 bg-green-500 text-white text-sm rounded hover:bg-green-600 transition" %>
+                <%= button_to "削除", 
+                    task_path(task), 
+                    method: :delete, 
+                    data: { turbo_confirm: "本当に削除しますか?" }, 
+                    class: "w-full sm:w-auto px-3 py-2 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition" %>
+                </div>
+            </div>
+            
+            <!-- 右側:丸いサボりたいボタン -->
+            <div class="flex-shrink-0">
+                <%= link_to timer_task_path(task), 
+                    class: "sabotage-button block w-20 h-20 md:w-24 md:h-24 rounded-full bg-blue-500 hover:bg-blue-600 flex flex-col items-center justify-center text-white font-bold text-xs md:text-sm no-underline shadow-md" do %>
+                <span class="leading-tight">サボりたい</span>
+                <% end %>
+            </div>
+            </div>
         </div>
-      </div>
     <% end %>
   </div>
-</div>
+<% end %>
+
+<!-- カスタムCSS -->
+ <style>
+  /* 押下時のアニメーション */
+  @keyframes press {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+  
+  .sabotage-button {
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+  
+  .sabotage-button:active {
+    animation: press 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sabotage-button:hover {
+    transform: scale(1.05);
+  }
+</style>

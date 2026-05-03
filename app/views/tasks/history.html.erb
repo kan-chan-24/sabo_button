@@ -1,0 +1,60 @@
+<div class="container mx-auto px-4 py-4 md:py-8">
+  <div class="max-w-2xl mx-auto">
+    <!-- ヘッダー:スマホでは小さめ、PCでは大きく -->
+    <div class="mb-6 md:mb-8">
+      <h1 class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
+        完了記録
+      </h1>
+      <p class="text-lg md:text-xl lg:text-2xl text-gray-600">
+        <%= @task.name %>
+      </p>
+    </div>
+
+    <!-- 完了回数の表示:数字を大きく見せる -->
+    <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 mb-6 md:mb-8">
+      <div class="text-center">
+        <p class="text-sm md:text-base text-gray-600 mb-2">これまでの完了回数</p>
+        <p class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-blue-600">
+          <%= @task.completion_count.to_i %>
+        </p>
+        <p class="text-sm md:text-base text-gray-600 mt-2">回</p>
+      </div>
+    </div>
+
+    <!-- 励ましメッセージ:スマホでも読みやすく -->
+    <div class="bg-blue-50 rounded-lg p-4 md:p-6 mb-6 md:mb-8">
+      <% count = @task.completion_count.to_i %>
+      <% if count == 0 %>
+        <p class="text-center text-sm md:text-base text-gray-700 leading-relaxed">
+          まだ記録がありません。<br class="sm:hidden">
+          「じゃあ3分だけ」から始めてみましょう！
+        </p>
+      <% elsif count < 5 %>
+        <p class="text-center text-sm md:text-base text-gray-700 leading-relaxed">
+          いい調子です！🎉<br class="sm:hidden">
+          小さな一歩を積み重ねていきましょう！
+        </p>
+      <% elsif count < 10 %>
+        <p class="text-center text-sm md:text-base text-gray-700 leading-relaxed">
+          素晴らしい！✨<br class="sm:hidden">
+          継続は力なり、この調子です！
+        </p>
+      <% else %>
+        <p class="text-center text-sm md:text-base text-gray-700 leading-relaxed">
+          すごい！もう <%= @task.completion_count %> 回も完了しています！🎊<br class="sm:hidden">
+          あなたは本当に頑張っています！
+        </p>
+      <% end %>
+    </div>
+
+    <!-- ボタン:スマホでもタップしやすく -->
+    <div class="space-y-3 md:space-y-4">
+      <%= link_to "もう一度やる", 
+          timer_task_path(@task), 
+          class: "block w-full px-6 py-3 md:py-4 bg-blue-500 text-white text-center text-base md:text-lg font-bold rounded-lg hover:bg-blue-600 transition" %>
+      <%= link_to "タスク一覧に戻る", 
+          tasks_path, 
+          class: "block w-full px-6 py-3 md:py-4 bg-gray-500 text-white text-center text-base md:text-lg font-bold rounded-lg hover:bg-gray-600 transition" %>
+    </div>
+  </div>
+</div>
